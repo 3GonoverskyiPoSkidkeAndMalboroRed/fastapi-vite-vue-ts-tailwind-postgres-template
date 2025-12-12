@@ -10,7 +10,7 @@ from app.core.database import Base
 
 # Импортируем все модели, чтобы они были зарегистрированы в Base.metadata
 # Это критически важно для автогенерации миграций
-from app.models import User  # noqa: F401
+from app.models import User, Test# noqa: F401
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
