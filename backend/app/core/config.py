@@ -1,6 +1,7 @@
 from typing import List
+import json
 from pydantic_settings import BaseSettings
-from pydantic import field_validator
+from pydantic import field_validator, Field
 
 
 class Settings(BaseSettings):
@@ -16,16 +17,25 @@ class Settings(BaseSettings):
     POSTGRES_PORT: int = 5432
     
     # CORS
-    BACKEND_CORS_ORIGINS: List[str] = ["http://localhost:5173", "http://localhost:3000"]
+    BACKEND_CORS_ORIGINS: List[str] = Field(
+        default=["http://localhost:5173", "http://localhost:3000"]
+    )
     
     @field_validator("BACKEND_CORS_ORIGINS", mode="before")
     @classmethod
     def assemble_cors_origins(cls, v):
-        if isinstance(v, str) and not v.startswith("["):
-            return [i.strip() for i in v.split(",")]
-        elif isinstance(v, (list, str)):
+        if isinstance(v, str):
+            # Если строка начинается с '[', это JSON-массив
+            if v.strip().startswith("["):
+                try:
+                    return json.loads(v)
+                except json.JSONDecodeError:
+                    raise ValueError(f"Invalid JSON format for BACKEND_CORS_ORIGINS: {v}")
+            # Иначе разделяем по запятой
+            return [i.strip() for i in v.split(",") if i.strip()]
+        elif isinstance(v, list):
             return v
-        raise ValueError(v)
+        raise ValueError(f"BACKEND_CORS_ORIGINS must be a string or list, got {type(v)}")
     
     @property
     def database_url(self) -> str:

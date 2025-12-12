@@ -5,9 +5,9 @@ services:
     image: postgres:17-alpine
     container_name: fastapi_postgres
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
     ports:
       - "5433:5432"
     volumes:
@@ -26,12 +26,12 @@ services:
       dockerfile: Dockerfile
     container_name: fastapi_backend
     environment:
-      POSTGRES_SERVER: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
-      POSTGRES_PORT: 5432
-      BACKEND_CORS_ORIGINS: '["http://localhost:5173","http://localhost:3000"]'
+      POSTGRES_SERVER: ${POSTGRES_SERVER:-postgres}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      POSTGRES_PORT: ${POSTGRES_PORT:-5432}
+      BACKEND_CORS_ORIGINS: ${BACKEND_CORS_ORIGINS:-["http://localhost:5173","http://localhost:3000"]}
     ports:
       - "8000:8000"
     volumes:
@@ -54,7 +54,7 @@ services:
       - ./frontend:/app
       - /app/node_modules
     environment:
-      - VITE_API_BACKEND_URL=http://backend:8000
+      - VITE_API_BACKEND_URL=${VITE_API_BACKEND_URL:-http://backend:8000}
     depends_on:
       - backend
     networks:
