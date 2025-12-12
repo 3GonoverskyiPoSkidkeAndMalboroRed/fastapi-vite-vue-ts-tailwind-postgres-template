@@ -1,5 +1,10 @@
 # Как запустить контейнеры
 
+Установите BuildKit:
+```bash
+setup-buildkit.sh
+```
+
 *Используйте shell-скрипт с предустановленными параметрами для Buildkit*
 
 ```bash
@@ -56,8 +61,19 @@ docker-compose exec backend alembic upgrade head
 
 # Что содержит проект?
 
-- Vite + Vue-ts(Vue с TypeScript) + TailwindCSS
+- Vite + Vue-ts(Vue с TypeScript) + TailwindCSS = http://127.0.0.1:5173/
 
-- Alembic для обеспечения версионности миграций в БД
+- Alembic для обеспечения версионности миграций в БД:
 
-- FastApi и зависимости к нему для ассинхронных запросов
+```
+Host name/Adresse = 127.0.0.2
+Port = 5433
+Maintenance database = postgres
+Password = postgres
+
+# Для доступа будет нужен pgAdmin4
+```
+
+- FastApi и зависимости к нему для ассинхронных запросов = http://127.0.0.1:8000/
+
+
