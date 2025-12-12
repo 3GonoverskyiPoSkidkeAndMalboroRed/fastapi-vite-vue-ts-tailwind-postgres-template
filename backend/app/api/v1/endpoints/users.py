@@ -5,14 +5,22 @@ from sqlalchemy import select
 from app.core.database import get_db
 from app.models.user import User
 from app.schemas.user import User as UserSchema, UserCreate
-from passlib.context import CryptContext
+import bcrypt
 
 router = APIRouter()
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def get_password_hash(password: str) -> str:
-    return pwd_context.hash(password)
+    """Хеширует пароль используя bcrypt"""
+    # Генерируем соль и хешируем пароль
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(password.encode('utf-8'), salt)
+    return hashed.decode('utf-8')
+
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """Проверяет соответствие пароля хешу"""
+    return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
 
 
 @router.get("/", response_model=List[UserSchema])
