@@ -57,3 +57,4 @@ frontend/.vite/
 # Alembic
 backend/alembic/versions/*.pyc
 
+

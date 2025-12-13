@@ -8,6 +8,38 @@
         <p class="text-gray-600 mb-6">
           Это шаблон проекта с FastAPI, PostgreSQL, Vue 3, TypeScript и Tailwind CSS.
         </p>
+        
+        <!-- Кнопка для показа Alert -->
+        <div class="mb-6">
+          <button
+            @click="showAlert = !showAlert"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors"
+          >
+            {{ showAlert ? 'Скрыть уведомление' : 'Показать уведомление' }}
+          </button>
+        </div>
+
+        <!-- Alert компонент -->
+        <div v-if="showAlert" class="mb-6">
+          <Alert :variant="alertVariant">
+            <AlertTitle>Уведомление</AlertTitle>
+            <AlertDescription>
+              Это пример использования компонента Alert из библиотеки Sigma UI.
+              Вы можете изменить вариант на "destructive" для предупреждений.
+            </AlertDescription>
+          </Alert>
+        </div>
+
+        <!-- Переключатель варианта Alert -->
+        <div v-if="showAlert" class="mb-6">
+          <button
+            @click="toggleAlertVariant"
+            class="bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-md transition-colors text-sm"
+          >
+            Переключить на {{ alertVariant === 'default' ? 'destructive' : 'default' }}
+          </button>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="bg-blue-50 p-4 rounded-lg">
             <h2 class="text-xl font-semibold text-blue-900 mb-2">Backend</h2>
@@ -35,5 +67,14 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+import { Alert, AlertTitle, AlertDescription, type AlertVariants } from '@/components/ui/alert'
+
+const showAlert = ref(false)
+const alertVariant = ref<AlertVariants['variant']>('default')
+
+const toggleAlertVariant = () => {
+  alertVariant.value = alertVariant.value === 'default' ? 'destructive' : 'default'
+}
 </script>
 
