@@ -1,3 +1,5 @@
+![ASCII Art](.md/assets/ascii-art.png)
+
 # Как запустить контейнеры
 
 Установите BuildKit:
