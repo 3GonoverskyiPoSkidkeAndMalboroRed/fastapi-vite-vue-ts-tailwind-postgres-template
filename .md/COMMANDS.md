@@ -144,3 +144,11 @@ docker stats
 # Просмотр информации о контейнере
 docker inspect <container_name>
 ```
+
+## Если .sh скрипты не запускаются(Permission denied)
+
+```bash
+chmod +x ./setup-buildkit.sh
+chmod +x ./backend/entrypoint.sh
+chmod +x ./docker-build.sh
+```
