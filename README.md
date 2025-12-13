@@ -59,9 +59,26 @@ from app.models import User, Test, <Ваша модель>
 docker-compose exec backend alembic upgrade head
 ```
 
+# Как добавить компонент из Библиотеки Sigma UI
+
+Подробные инструкции по использованию библиотеки Sigma UI:
+
+- [Гайд по использованию Sigma UI](.md/SIGMA_UI_GUIDE.md) - полное руководство по установке, настройке и использованию компонентов
+- [Список всех компонентов Sigma UI](.md/SIGMA_UI_COMPONENTS_LIST.md) - полный список доступных компонентов с описаниями
+
+# Как добавить терминал Git Bash или WSL
+
+Подробные инструкции по использованию библиотеки Sigma UI:
+
+- [Гайд по установки Git Bash](.md/GIT_BASH_GUIDE.md) - полное руководство по установке, настройке и использованию компонентов
+- [Гайд по установке WSL2](.md/WSL2_INSTALL_GUIDE.md) - полное руководство по установке и настройке WSL2 на Windows
+
+
 # Что содержит проект?
 
 - Vite + Vue-ts(Vue с TypeScript) + TailwindCSS = http://127.0.0.1:5173/
+
+- Библиотеку компонетов Sigma UI - https://sigma-ui.dev/
 
 - Alembic для обеспечения версионности миграций в БД:
 
